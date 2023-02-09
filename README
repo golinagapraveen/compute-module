@@ -1,0 +1,1 @@
+This is used to extract the entries in dynamo db table and use them to deploy into that account the terraform related resources.
