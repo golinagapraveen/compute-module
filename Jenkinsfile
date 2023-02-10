@@ -40,7 +40,6 @@ pipeline {
     
     stage('Terraform Plan') {
       steps {
-        container('slave-terraform') {
           script {
             withCredentials ([usernamePassword(credentialsId: env.TF_CREDS_NAME, usernameVariable: 'TF_AK', passwordVariable: 'TF_SK')]){
               env.AWS_ACCESS_KEY_ID = "${TF_AK}"
@@ -63,7 +62,6 @@ pipeline {
               '''
             } // end withCredentials
           } // end script
-        }  // end container
       }  // end steps
     }   // end stage
 
