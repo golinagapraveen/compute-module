@@ -14,7 +14,7 @@ pipeline {
        PLEASE NOTE: The values you set in the ENV parameter section need to have the same names as the tfvars files in the env directory e.g. noc201.tfvars should exist if you are targetting that account.
     */
     choice(name: 'AWS_ACCOUNT_NUMBER', choices: ['287476025192', '763157542448', '464177228504'], description:'The account to get the agent image from 287476025192 is paas(201), 763157542448 is dev/test/uat(101), 464177228504 is nft/mat/pre/prd(001)')
-    choice(name: 'ENV', choices: ['log001'], description:'Environment to deploy to')
+    choice(name: 'ENV', choices: ['noc201'], description:'Environment to deploy to')
   }
 
   environment {
@@ -25,10 +25,10 @@ pipeline {
     stage("Set Env Vars"){
       steps {
         script{
-          withCredentials ([usernamePassword(credentialsId: 'LM-SVC-TF-CREDS', usernameVariable: 'TF_AK', passwordVariable: 'TF_SK')]){
+          withCredentials ([usernamePassword(credentialsId: 'use-this', usernameVariable: 'TF_AK', passwordVariable: 'TF_SK')]){
             env.AWS_ACCESS_KEY_ID = "${TF_AK}"
             env.AWS_SECRET_ACCESS_KEY = "${TF_SK}"
-            env.AWS_DEFAULT_REGION="eu-west-2"
+            env.AWS_DEFAULT_REGION="eu-west-1"
             env.DYNAMO_VARS = sh(returnStdout: true, script: """aws dynamodb --region eu-west-2 get-item --table-name lm-terraform-jenkins-params --key '{"module": {"S": "${GIT_REPO_NAME}"}, "environment": {"S": "${ENV}"}}'| jq '.Item'""")
             env.DYNAMODB_TABLE = sh(returnStdout: true, script: '''echo ${DYNAMO_VARS} | jq -r ".dynamodb_table[]"''').trim()
             env.TF_S3_BUCKET = sh(returnStdout: true, script: '''echo ${DYNAMO_VARS} | jq -r ".tf_s3_bucket[]"''').trim()
