@@ -18,6 +18,8 @@ module "compute" {
   env_id                                       = var.env_id
   eks_version                                  = var.eks_version
   region                                       = var.region
+  subnet1                                      = var.subnet1
+  subnet2                                      = var.subnet2
     
 }
 
