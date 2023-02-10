@@ -13,7 +13,6 @@ pipeline {
        If you are creating a terraform module that is deployed once per account simply replace the values with the relevant account names, e.g. noc201, noc101, noc001
        PLEASE NOTE: The values you set in the ENV parameter section need to have the same names as the tfvars files in the env directory e.g. noc201.tfvars should exist if you are targetting that account.
     */
-    choice(name: 'AWS_ACCOUNT_NUMBER', choices: ['287476025192', '763157542448', '464177228504'], description:'The account to get the agent image from 287476025192 is paas(201), 763157542448 is dev/test/uat(101), 464177228504 is nft/mat/pre/prd(001)')
     choice(name: 'ENV', choices: ['noc201'], description:'Environment to deploy to')
   }
 
