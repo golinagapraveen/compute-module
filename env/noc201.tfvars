@@ -1,0 +1,6 @@
+subnet1 = "subnet-064fba1de038a09cc"
+subnet2 = "subnet-0a3123a536395fe61"
+eks_cluster_name = "lm-eks-noc201"
+env_id = "noc201"
+region = "eu-west-1"
+eks_version = "1.20"
