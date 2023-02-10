@@ -73,13 +73,11 @@ pipeline {
 
     stage('Terraform Apply') {
       steps {
-        container('slave-terraform') {
           script {
             sh '''
               terraform apply -auto-approve tfplan
             '''
          } // end script
-        }// end container
       } // end steps
     } // end stage
   }   //  end stages
