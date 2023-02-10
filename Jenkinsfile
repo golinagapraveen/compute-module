@@ -28,7 +28,7 @@ pipeline {
             env.AWS_ACCESS_KEY_ID = "${TF_AK}"
             env.AWS_SECRET_ACCESS_KEY = "${TF_SK}"
             env.AWS_DEFAULT_REGION="eu-west-1"
-            env.DYNAMO_VARS = sh(returnStdout: true, script: """aws dynamodb --region eu-west-2 get-item --table-name lm-terraform-jenkins-params --key '{"module": {"S": "${GIT_REPO_NAME}"}, "environment": {"S": "${ENV}"}}'| jq '.Item'""")
+            env.DYNAMO_VARS = sh(returnStdout: true, script: """aws dynamodb --region eu-west-1 get-item --table-name lm-terraform-jenkins-params --key '{"module": {"S": "${GIT_REPO_NAME}"}, "environment": {"S": "${ENV}"}}'| jq '.Item'""")
             env.DYNAMODB_TABLE = sh(returnStdout: true, script: '''echo ${DYNAMO_VARS} | jq -r ".dynamodb_table[]"''').trim()
             env.TF_S3_BUCKET = sh(returnStdout: true, script: '''echo ${DYNAMO_VARS} | jq -r ".tf_s3_bucket[]"''').trim()
             env.TF_STATE_LOC = sh(returnStdout: true, script: '''echo ${DYNAMO_VARS} | jq -r ".tf_state_loc[]"''').trim()
