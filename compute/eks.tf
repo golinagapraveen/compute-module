@@ -13,6 +13,7 @@ resource "aws_eks_cluster" "test-eks-cluster" {
     endpoint_private_access = false
     endpoint_public_access  = true
   }
+  enabled_cluster_log_types = ["api", "audit", "authenticator", "controllerManager", "scheduler"]
 
   # Ensure that IAM Role permissions are created before and deleted after EKS Cluster handling.
   # Otherwise, EKS will not be able to properly delete EKS managed EC2 infrastructure such as Security Groups.
