@@ -13,7 +13,7 @@ pipeline {
        If you are creating a terraform module that is deployed once per account simply replace the values with the relevant account names, e.g. noc201, noc101, noc001
        PLEASE NOTE: The values you set in the ENV parameter section need to have the same names as the tfvars files in the env directory e.g. noc201.tfvars should exist if you are targetting that account.
     */
-    choice(name: 'ENV', choices: ['noc201'], description:'Environment to deploy to')
+    choice(name: 'ENV', choices: ['pat201'], description:'Environment to deploy to')
   }
 
   environment {
